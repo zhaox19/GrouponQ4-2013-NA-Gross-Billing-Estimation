@@ -14,7 +14,8 @@ Approaches
 	Machine learning (random forest, gradient boosting and decision tree)
   
 Project Platform
-Python. All codes, comments and output are in the appendix.
+
+	Python
 
 Data Quality
 
@@ -44,51 +45,52 @@ Exploratory Analysis, Patterns, and Adjustments
  
 Time Series Estimation Approach
 
-The first idea that I had was fitting an ARIMA model to the local gross billing to capture the pattern of the data and estimate the missing data points base on the pattern. Therefore, I extract the local gross billing data from the original dataset and make the start date as the time index. Aggregate the local gross billing to daily data. 
-Base on the time series plot and Dickey-Fuller test result at a 95% confidence level, this series is a non-stationary time series. It includes an increasing trend, increasing variance and non-seasonality pattern. To fit an ARIMA model, the data has to be a stationary time series. If the time series is non-stationary, it’s average value and variance will fluctuate over time. There is no way to fit a model and predict anything without a fixed pattern. Therefore, I performed some transformation to make it a stationary time series. 
-There are some issues with the transformation process. First, there is a large number of zeros in daily local gross billing for deals start in 2012. And there are two negative values in the dataset. Taking the log of zero or negative values will bring infinite number and error. Because there are a lot of zeros in 2012 and the most local gross billings for deals start in 2012 are small, I decided to only use the data from 01/01/2013 to 10/19/2013 to estimate the missing data points. Furthermore, it is unreasonable to impute all those zeros values because they are real data points (without wrong information). There are only two local gross billing are negative in 2013 start deals, I replaced them with the median of the dataset.
-After transforming the series into a stationary time series, I can start working on fitting an ARIMA model to the log-transformed series. I created a “for loop” that includes AR and MA values from 1 to 5 so that the program can select the best combination of AR and MA for me. Also, as mentioned above, because I took the first difference to the transformed series, the difference parameter d was set to 1. I chose the combination of parameters that can produce the smallest AIC value as the best ARIMA model parameters. For the final time series model, both the AR and MA parameter equals to 3, and the best model is ARIMA (3,1,3).
-Base on the standardized residual plot and the Ljung-Box test results, the model has captured all the features of this time series. Furthermore, the residual is normally distributed and there is no correlation between each lag.
- 
-To test the model accuracy, I compared the predicted result with the actual data and obtained the mean square error (MSE) which can be treated as a criterion that measures the accuracy of the model. I will use the MSE as the standard for final model selection. The MSE for this ARIMA (3,1,3) model is 7.066e+11. 
-I then used this model to predict the missing local gross billing of deals starts from 10/20/2013 to 10/30/2013. The prediction results are in the final estimation result table.
-The issue with time series analysis is, it doesn’t utilize the information from 11/01/2013 to 12/31/2013 to impute the missing data. These may lower the accuracy of the prediction. Also, building up the time series model only use local gross billing information, but didn’t capture the correlation and influence from other variables. Therefore, next I use machine-learning algorithms to estimate the missing data points.
+	The first idea that I had was fitting an ARIMA model to the local gross billing to capture the pattern of the data and estimate the missing data points base on the pattern. Therefore, I extract the local gross billing data from the original dataset and make the start date as the time index. Aggregate the local gross billing to daily data. 
+	Base on the time series plot and Dickey-Fuller test result at a 95% confidence level, this series is a non-stationary time series. It includes an increasing trend, increasing variance and non-seasonality pattern. To fit an ARIMA model, the data has to be a stationary time series. If the time series is non-stationary, it’s average value and variance will fluctuate over time. There is no way to fit a model and predict anything without a fixed pattern. Therefore, I performed some transformation to make it a stationary time series. 
+	There are some issues with the transformation process. First, there is a large number of zeros in daily local gross billing for deals start in 2012. And there are two negative values in the dataset. Taking the log of zero or negative values will bring infinite number and error. Because there are a lot of zeros in 2012 and the most local gross billings for deals start in 2012 are small, I decided to only use the data from 01/01/2013 to 10/19/2013 to estimate the missing data points. Furthermore, it is unreasonable to impute all those zeros values because they are real data points (without wrong information). There are only two local gross billing are negative in 2013 start deals, I replaced them with the median of the dataset.
+	After transforming the series into a stationary time series, I can start working on fitting an ARIMA model to the log-transformed series. I created a “for loop” that includes AR and MA values from 1 to 5 so that the program can select the best combination of AR and MA for me. Also, as mentioned above, because I took the first difference to the transformed series, the difference parameter d was set to 1. I chose the combination of parameters that can produce the smallest AIC value as the best ARIMA model parameters. For the final time series model, both the AR and MA parameter equals to 3, and the best model is ARIMA (3,1,3).
+	Base on the standardized residual plot and the Ljung-Box test results, the model has captured all the features of this time series. Furthermore, the residual is normally distributed and there is no correlation between each lag.
+	To test the model accuracy, I compared the predicted result with the actual data and obtained the mean square error (MSE) which can be treated as a criterion that measures the accuracy of the model. I will use the MSE as the standard for final model selection. The MSE for this ARIMA (3,1,3) model is 7.066e+11. 
+	I then used this model to predict the missing local gross billing of deals starts from 10/20/2013 to 10/30/2013. The prediction results are in the final estimation result table.
+	The issue with time series analysis is, it doesn’t utilize the information from 11/01/2013 to 12/31/2013 to impute the missing data. These may lower the accuracy of the prediction. Also, building up the time series model only use local gross billing information, but didn’t capture the correlation and influence from other variables. Therefore, next I use machine-learning algorithms to estimate the missing data points.
 
 Machine Learning Estimation Approach
 
-To implementing machine-learning algorithms to the dataset, I first generated explanatory variables, and reshaped the data to observations by features. 
+	To implement machine-learning algorithms to the dataset, I first generated explanatory variables, and reshaped the data to observations by features. 
 As mentioned before, there is a positive relationship between local gross billing and other gross billing, local units sold and other units sold.  Furthermore, the time stamp variables such as the day of a week, week of the year and month of year also contain useful information for the estimation. 
 Therefore, I chose, other units sold, other gross billing, day of the week, week of the year and month of year to be the explanatory variables, and local gross billing as the response variable. The reason I didn’t choose the local units sold as one of the five explanatory variables is, there is no data from 10/20/2013 to 10/30/2013, and local units sold is very possible to become a significant variable for the prediction. However, there is no reason to use missing values to predict missing values. Also, it will produce a larger error if I impute those missing local units sold first, and then use the imputed values to estimate the local gross billing. To reduce the influence of missing values, I decided not to use the local units sold as one of the explanatory variables.
 
-As I mentioned in the patterns section, if I use the whole dataset then there will be a lot of missing values. They can’t be all imputed because it will lead to inconsistencies with reality. Therefore, I dropped the data before 3/25/2013. 
+	As I mentioned in the patterns section, if I use the whole dataset then there will be a lot of missing values. They can’t be all imputed because it will lead to inconsistencies with reality. Therefore, I dropped the data before 3/25/2013. 
 
-This time, because the data is not time-indexed anymore, I can use all the information in the dataset rather than only use the data before 10/20/2013 to build up the model. Let’s call this dataset as the base dataset. The base dataset contains information from 3/25/2013 to 10/19/2013 and 10/31/2013 to 12/31/2013. This base dataset will be used to train the machine learning model. Once I have the model, I can use the model to estimate local gross billing from 10/20/2013 to 10/30/2013.
-The model training process is very similar. I trained a random forest model, a gradient boosting model, and a decision tree model for this assignment. I will describe the process of training the gradient boosting model here as an example.
-First, I separate the base data into 70% training data and 30% testing data with a random sample. And then I construct a grid search for parameter tuning, these parameters include the number of estimators, the maximum depth of each decision tree, the minimum number of samples in each leaf, the minimum number of samples in each split, the number of features to consider and the learning rate.
+	This time, because the data is not time-indexed anymore, I can use all the information in the dataset rather than only use the data before 10/20/2013 to build up the model. Let’s call this dataset as the base dataset. The base dataset contains information from 3/25/2013 to 10/19/2013 and 10/31/2013 to 12/31/2013. This base dataset will be used to train the machine learning model. Once I have the model, I can use the model to estimate local gross billing from 10/20/2013 to 10/30/2013.
+	The model training process is very similar. I trained a random forest model, a gradient boosting model, and a decision tree model for this assignment. I will describe the process of training the gradient boosting model here as an example.
+	First, I separate the base data into 70% training data and 30% testing data with a random sample. And then I construct a grid search for parameter tuning, these parameters include the number of estimators, the maximum depth of each decision tree, the minimum number of samples in each leaf, the minimum number of samples in each split, the number of features to consider and the learning rate.
 
-Second, fitted the model with training set and used the model to predict the response variable. Once I had the predicted result, I compared it with the test set response variable which is the true values. And then calculated the mean square error and plotted the importance of each variable.
+	Second, fitted the model with training set and used the model to predict the response variable. Once I had the predicted result, I compared it with the test set response variable which is the true values. And then calculated the mean square error and plotted the importance of each variable.
 
-The formula for calculating MSE is:
-MSE=∑_(i=1)^n▒〖(y_i-(y_i ) ̂)〗^2/n
-The mean square errors were calculated by MSE function in python. All the codes are in the Appendix.
-Third, bring in the 10/20/2013 to 10/30/2013 dataset and predict the missing local gross billing with the known explanatory variables. 
-The results of the random forest, gradient boosting, decision tree, and ARIMA models are shown in the table below. As you can see the gradient boosting model has the smallest MSE, so I select its result as the final estimation value.
+	The formula for calculating MSE is:
+	MSE=∑_(i=1)^n▒〖(y_i-(y_i ) ̂)〗^2/n
+	The mean square errors were calculated by MSE function in python. All the codes are in the Appendix.
+	Third, bring in the 10/20/2013 to 10/30/2013 dataset and predict the missing local gross billing with the known explanatory variables. 
+	The results of the random forest, gradient boosting, decision tree, and ARIMA models are shown in the table below. As you can see the gradient boosting model has the smallest MSE, so I select its result as the final estimation value.
 
 Final Estimation Result Table
-	Random Forest	Gradient Boosting	Decision Tree	ARIMA
-Local Gross Billing	$444026162.39	$445028140.83	$446041574.63	$444728012.98
-Travel Gross Billing	$70547395.73	$70547395.73	$70547395.73	$70547395.73
-Goods Gross Billing	$282245469.1	$282245469.1	$282245469.1	$282245469.1
-Total	$796819027.22	$797821005.65	$798834439.45	$79720877.81
-MSE	3.8e+11	2.95e+11	3.9e+11	7.07e+11
+
+				Random Forest Gradient Boosting Decision Tree	 ARIMA
+	Local Gross Billing	$444026162.39	$445028140.83	$446041574.63	$444728012.98
+	Travel Gross Billing	$70547395.73	$70547395.73	$70547395.73	$70547395.73
+	Goods Gross Billing	$282245469.1	$282245469.1	$282245469.1	$282245469.1
+	Total		        $796819027.22	$797821005.65	$798834439.45	$79720877.81
+	MSE			3.8e+11	        2.95e+11	3.9e+11	        7.07e+11
 
 Buy or Sell Recommendation
-For the buy or sell recommendation, I would like to compare the equity reports estimation with mine. 
-Deutsche Bank Markets Research	DB 3Q 2013 (Million)	DB 4Q 2013E (Million)	Q/Q Growth Rate
-NA Local Gross Billing	$403	N/A	N/A
-NA Travel Gross Billing	$68	N/A	N/A
-NA Goods Gross Billing	$195	N/A	N/A
-NA Total Gross Billing	$665	$803.2	20.78%
+
+	For the buy or sell recommendation, I would like to compare the equity reports estimation with mine. 
+	Deutsche Bank Markets Research	DB 3Q 2013 (Million)	DB 4Q 2013E (Million)	Q/Q Growth Rate
+	NA Local Gross Billing	$403	N/A	N/A
+	NA Travel Gross Billing	$68	N/A	N/A
+	NA Goods Gross Billing	$195	N/A	N/A
+	NA Total Gross Billing	$665	$803.2	20.78%
 
 JPMorgan Equity Research	JP Morgan 3Q 2013 (Million)	DB 4Q 2013E (Million)	Q/Q Growth Rate
 NA Local Gross Billing	$403	$490.142
