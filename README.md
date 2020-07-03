@@ -98,11 +98,11 @@ Buy or Sell Recommendation
 	NA Goods Gross Billing				$195	               $275.716	        	41.7%
 	NA Total Gross Billing				$665		       $836.88			25.85%
 
-	Morgan Stanley Research		MS GRPN 3Q 2013 (Million)	DB 4Q 2013E (Million)		Q/Q Growth Rate
+	Morgan Stanley Research		MS GRPN 3Q 2013 (Million)	MS GRPN 4Q 2013E (Million)	Q/Q Growth Rate
 	NA Local Gross Billing				$403			$508                    26.1%
 	NA Travel Gross Billing				$68	        	$67	                -1.4%
 	NA Goods Gross Billing				$195	        	$295.4	                51.5%
-	NA Total Gross Billing				$665	        $	870.1			30.84%
+	NA Total Gross Billing				$665	        	$870.1			30.84%
 
 	My Estimation				3Q 2013 (Million)	4Q 2013E (Million)		Q/Q Growth Rate
 	NA Local Gross Billing				$403			$445.03			10.43%
