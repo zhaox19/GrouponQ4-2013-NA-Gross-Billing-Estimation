@@ -87,37 +87,35 @@ Buy or Sell Recommendation
 
 	For the buy or sell recommendation, I would like to compare the equity reports estimation with mine. 
 	Deutsche Bank Markets Research	DB 3Q 2013 (Million)	DB 4Q 2013E (Million)	Q/Q Growth Rate
-	NA Local Gross Billing	$403	N/A	N/A
-	NA Travel Gross Billing	$68	N/A	N/A
-	NA Goods Gross Billing	$195	N/A	N/A
-	NA Total Gross Billing	$665	$803.2	20.78%
+	NA Local Gross Billing			$403	               N/A		N/A
+	NA Travel Gross Billing			$68	               N/A	        N/A
+	NA Goods Gross Billing			$195		       N/A	        N/A
+	NA Total Gross Billing			$665	               $803.2	        20.78%
 
-JPMorgan Equity Research	JP Morgan 3Q 2013 (Million)	DB 4Q 2013E (Million)	Q/Q Growth Rate
-NA Local Gross Billing	$403	$490.142
-	21.7%
-NA Travel Gross Billing	$68	$71.020	5%
-NA Goods Gross Billing	$195	$275.716	41.7%
-NA Total Gross Billing	$665	$836.88	25.85%
+	JPMorgan Equity Research	JP Morgan 3Q 2013 (Million)	DB 4Q 2013E (Million)	Q/Q Growth Rate
+	NA Local Gross Billing				$403	               $490.142         21.7%
+	NA Travel Gross Billing				$68	               $71.020	          5%
+	NA Goods Gross Billing				$195	               $275.716	        41.7%
+	NA Total Gross Billing				$665		       $836.88		25.85%
 
-Morgan Stanley Research	MS GRPN 3Q 2013 (Million)	DB 4Q 2013E (Million)	Q/Q Growth Rate
-NA Local Gross Billing	$403	$508
-	26.1%
-NA Travel Gross Billing	$68	$67	-1.4%
-NA Goods Gross Billing	$195	$295.4	51.5%
-NA Total Gross Billing	$665	$870.1	30.84%
+	Morgan Stanley Research	MS GRPN 3Q 2013 (Million)	DB 4Q 2013E (Million)	Q/Q Growth Rate
+	NA Local Gross Billing			$403		$508                      26.1%
+	NA Travel Gross Billing			$68	        $67	                  -1.4%
+	NA Goods Gross Billing			$195	        $295.4	                  51.5%
+	NA Total Gross Billing			$665	        $870.1			  30.84%
 
-My Estimation	3Q 2013 (Million)	4Q 2013E (Million)	Q/Q Growth Rate
-NA Local Gross Billing	$403	$445.03	10.43%
-NA Travel Gross Billing	$68	$70.55	3.75%
-NA Goods Gross Billing	$195	$282.25	44.74%
-NA Total Gross Billing	$665	$797.82	19.97%
+	My Estimation			3Q 2013 (Million)	4Q 2013E (Million)	Q/Q Growth Rate
+	NA Local Gross Billing		$403			$445.03			10.43%
+	NA Travel Gross Billing		$68			$70.55			3.75%
+	NA Goods Gross Billing		$195			$282.25			44.74%
+	NA Total Gross Billing		$665			$797.82			19.97%
 
-From the tables above, my estimation of total gross billing is lower than all other reports’ results. Also, the quarter over quarter growth rate is lower than other results.  
-The formula I used to calculate the Q/Q growth rate of my estimation and the is:
-((Current Year Estimated Gross Billing-Last Year Estimated Gross Billing))/(Last Year Estimated Gross Billing )*100%
-Local∶(($445.03-403))/($445.03 )*100%=10.43%
-Travel:  (($70.55-68))/$68*100%=3.75%
-Goods:  (($282.25-195))/$195*100%=44.74%
-Total:  (($789.82-665))/$665*100%=19.97%
-In other words, both of my estimation amount of 4Q 2013 North America total gross billing and quarter over quarter gross billing growth rate are lower than the market’s expected value. Therefore, I would recommend my client to sell Groupon’s stock. 
+	From the tables above, my estimation of total gross billing is lower than all other reports’ results. Also, the quarter over quarter growth rate is lower than other results.  
+	The formula I used to calculate the Q/Q growth rate of my estimation is:
+	((Current Year Estimated Gross Billing-Last Year Estimated Gross Billing))/(Last Year Estimated Gross Billing )*100%
+	Local∶(($445.03-403))/($445.03 )*100%=10.43%
+	Travel:  (($70.55-68))/$68*100%=3.75%
+	Goods:  (($282.25-195))/$195*100%=44.74%
+	Total:  (($789.82-665))/$665*100%=19.97%
+	In other words, both of my estimated amount of 4Q 2013 North America total gross billing and quarter over quarter gross billing growth rate are lower than the market’s expected value. Therefore, I would recommend my client to sell Groupon’s stock. 
 
